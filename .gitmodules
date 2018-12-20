@@ -1,0 +1,3 @@
+[submodule "P1/rocket-chip"]
+	path = P1/rocket-chip
+	url = git@gitlab-ext.galois.com:ssith/rocket-chip.git
