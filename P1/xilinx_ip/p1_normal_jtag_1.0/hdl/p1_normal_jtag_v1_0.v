@@ -213,7 +213,7 @@
         .mmio_axi4_0_aw_ready            (mmio_axi_awready            ),
         .mmio_axi4_0_aw_valid            (mmio_axi_awvalid            ),
         .mmio_axi4_0_aw_bits_id          (mmio_axi_awid          ),
-        .mmio_axi4_0_aw_bits_addr        (mmio_axi_awaddr        ),
+        .mmio_axi4_0_aw_bits_addr        (mmio_axi_awaddr[30:0]        ),
         .mmio_axi4_0_aw_bits_len         (mmio_axi_awlen         ),
         .mmio_axi4_0_aw_bits_size        (mmio_axi_awsize        ),
         .mmio_axi4_0_aw_bits_burst       (mmio_axi_awburst       ),
@@ -233,7 +233,7 @@
         .mmio_axi4_0_ar_ready            (mmio_axi_arready            ),
         .mmio_axi4_0_ar_valid            (mmio_axi_arvalid            ),
         .mmio_axi4_0_ar_bits_id          (mmio_axi_arid          ),
-        .mmio_axi4_0_ar_bits_addr        (mmio_axi_araddr        ),
+        .mmio_axi4_0_ar_bits_addr        (mmio_axi_araddr[30:0]        ),
         .mmio_axi4_0_ar_bits_len         (mmio_axi_arlen         ),
         .mmio_axi4_0_ar_bits_size        (mmio_axi_arsize        ),
         .mmio_axi4_0_ar_bits_burst       (mmio_axi_arburst       ),
@@ -251,6 +251,8 @@
 
     // For now, use SiFive manufacturing IDCODE, so that OpenOCD can recognize it
     assign debug_systemjtag_mfr_id = 11'h489;
+    assign mmio_axi_awaddr[31] = 1'b0;
+    assign mmio_axi_araddr[31] = 1'b0;
 
 
     // User logic ends
