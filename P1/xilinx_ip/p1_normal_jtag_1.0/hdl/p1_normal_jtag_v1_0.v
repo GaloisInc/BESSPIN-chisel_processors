@@ -253,6 +253,12 @@
     assign debug_systemjtag_mfr_id = 11'h489;
     assign mmio_axi_awaddr[31] = 1'b0;
     assign mmio_axi_araddr[31] = 1'b0;
+    assign mmio_axi_wuser = 'b0;
+    assign mmio_axi_aruser = 'b0;
+    assign mmio_axi_awuser = 'b0;
+    assign mem_axi_wuser = 'b0;
+    assign mem_axi_aruser = 'b0;
+    assign mem_axi_awuser = 'b0;   
 
 
     // User logic ends
