@@ -2178,10 +2178,6 @@
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>     
       <spirit:file>
-        <spirit:name>hdl/SimDTM.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
         <spirit:name>hdl/galois.system.P1Config.behav_srams.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
@@ -2205,10 +2201,6 @@
         <spirit:name>hdl/plusarg_reader.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>     
-      <spirit:file>
-        <spirit:name>hdl/SimDTM.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
       <spirit:file>
         <spirit:name>hdl/galois.system.P1Config.behav_srams.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
