@@ -624,6 +624,10 @@ module mkP1_Core(CLK,
   assign debug_systemjtag_mfr_id = 11'h489;
   assign master1_awaddr[31] = 1'b0;
   assign master1_araddr[31] = 1'b0;
-  
+  assign master0_arregion = 'b0;
+  assign master0_awregion = 'b0;
+  assign master1_arregion = 'b0;
+  assign master1_awregion = 'b0;
+
 endmodule  // mkP1_Core
 
