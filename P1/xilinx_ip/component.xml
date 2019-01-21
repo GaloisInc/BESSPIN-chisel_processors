@@ -2178,11 +2178,11 @@
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>     
       <spirit:file>
-        <spirit:name>hdl/galois.system.P1Config.behav_srams.v</spirit:name>
+        <spirit:name>hdl/galois.system.P1FPGAConfig.behav_srams.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/galois.system.P1Config.v</spirit:name>
+        <spirit:name>hdl/galois.system.P1FPGAConfig.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -2202,11 +2202,11 @@
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>     
       <spirit:file>
-        <spirit:name>hdl/galois.system.P1Config.behav_srams.v</spirit:name>
+        <spirit:name>hdl/galois.system.P1FPGAConfig.behav_srams.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/galois.system.P1Config.v</spirit:name>
+        <spirit:name>hdl/galois.system.P1FPGAConfig.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>

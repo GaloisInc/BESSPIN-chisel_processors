@@ -521,24 +521,24 @@ module mkP1_Core(CLK,
 
   // rocket internal signals
   wire reset;
-  wire [10:0] debug_systemjtag_mfr_id;
+  wire [10:0] debug_xilinxjtag_mfr_id;
 
   // rocket unused outputs
-  wire debug_systemjtag_jtag_TDO_driven;
+  wire debug_xilinxjtag_jtag_TDO_driven;
   wire debug_ndreset;
   wire debug_dmactive;
 
   P1System i_P1System (
     .clock                           (CLK                             ),
     .reset                           (reset                           ),
-    .interrupts                      (interrupts                      ),
-    .debug_systemjtag_jtag_TCK       (jtag_tck                        ),
-    .debug_systemjtag_jtag_TMS       (jtag_tms                        ),
-    .debug_systemjtag_jtag_TDI       (jtag_tdi                        ),
-    .debug_systemjtag_jtag_TDO_data  (jtag_tdo                        ),
-    .debug_systemjtag_jtag_TDO_driven(debug_systemjtag_jtag_TDO_driven),
-    .debug_systemjtag_reset          (reset                           ),
-    .debug_systemjtag_mfr_id         (debug_systemjtag_mfr_id         ),
+    .interrupts                      ({1'b0, cpu_external_interrupt_req}),
+    .debug_xilinxjtag_jtag_TCK       (jtag_tck                        ),
+    .debug_xilinxjtag_jtag_TMS       (jtag_tms                        ),
+    .debug_xilinxjtag_jtag_TDI       (jtag_tdi                        ),
+    .debug_xilinxjtag_jtag_TDO_data  (jtag_tdo                        ),
+    .debug_xilinxjtag_jtag_TDO_driven(debug_xilinxjtag_jtag_TDO_driven),
+    .debug_xilinxjtag_reset          (reset                           ),
+    .debug_xilinxjtag_mfr_id         (debug_xilinxjtag_mfr_id         ),
     .debug_ndreset                   (debug_ndreset                   ),
     .debug_dmactive                  (debug_dmactive                  ),
     .mem_axi4_0_aw_ready             (master0_awready                 ),
@@ -554,7 +554,7 @@ module mkP1_Core(CLK,
     .mem_axi4_0_aw_bits_qos          (master0_awqos                   ),
     .mem_axi4_0_w_ready              (master0_wready                  ),
     .mem_axi4_0_w_valid              (master0_wvalid                  ),
-    .mem_axi4_0_w_bits_data          (master0_wdata[31:0]             ),
+    .mem_axi4_0_w_bits_data          (master0_wdata             ),
     .mem_axi4_0_w_bits_strb          (master0_wstrb                   ),
     .mem_axi4_0_w_bits_last          (master0_wlast                   ),
     .mem_axi4_0_b_ready              (master0_bready                  ),
@@ -575,7 +575,7 @@ module mkP1_Core(CLK,
     .mem_axi4_0_r_ready              (master0_rready                  ),
     .mem_axi4_0_r_valid              (master0_rvalid                  ),
     .mem_axi4_0_r_bits_id            (master0_rid                     ),
-    .mem_axi4_0_r_bits_data          (master0_rdata[31:0]             ),
+    .mem_axi4_0_r_bits_data          (master0_rdata             ),
     .mem_axi4_0_r_bits_resp          (master0_rresp                   ),
     .mem_axi4_0_r_bits_last          (master0_rlast                   ),
     .mmio_axi4_0_aw_ready            (master1_awready                 ),
@@ -591,7 +591,7 @@ module mkP1_Core(CLK,
     .mmio_axi4_0_aw_bits_qos         (master1_awqos                   ),
     .mmio_axi4_0_w_ready             (master1_wready                  ),
     .mmio_axi4_0_w_valid             (master1_wvalid                  ),
-    .mmio_axi4_0_w_bits_data         (master1_wdata[31:0]             ),
+    .mmio_axi4_0_w_bits_data         (master1_wdata             ),
     .mmio_axi4_0_w_bits_strb         (master1_wstrb                   ),
     .mmio_axi4_0_w_bits_last         (master1_wlast                   ),
     .mmio_axi4_0_b_ready             (master1_bready                  ),
@@ -612,7 +612,7 @@ module mkP1_Core(CLK,
     .mmio_axi4_0_r_ready             (master1_rready                  ),
     .mmio_axi4_0_r_valid             (master1_rvalid                  ),
     .mmio_axi4_0_r_bits_id           (master1_rid                     ),
-    .mmio_axi4_0_r_bits_data         (master1_rdata[31:0]             ),
+    .mmio_axi4_0_r_bits_data         (master1_rdata             ),
     .mmio_axi4_0_r_bits_resp         (master1_rresp                   ),
     .mmio_axi4_0_r_bits_last         (master1_rlast                   )
   );
@@ -621,11 +621,13 @@ module mkP1_Core(CLK,
   assign reset = ~RST_N;
 
   // For now, use SiFive manufacturing IDCODE, so that OpenOCD can recognize it
-  assign debug_systemjtag_mfr_id = 11'h489;
-  assign master1_awaddr[31] = 1'b0;
-  assign master1_araddr[31] = 1'b0;
+  assign debug_xilinxjtag_mfr_id = 11'h489;
+  assign master0_awaddr[63:32] = 'b0;
+  assign master0_araddr[63:32] = 'b0; 
   assign master0_arregion = 'b0;
   assign master0_awregion = 'b0;
+  assign master1_awaddr[63:31] = 'b0;
+  assign master1_araddr[63:31] = 'b0;
   assign master1_arregion = 'b0;
   assign master1_awregion = 'b0;
 
