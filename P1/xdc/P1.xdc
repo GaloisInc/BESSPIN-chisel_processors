@@ -18,7 +18,8 @@ set_input_delay -max [expr 0.5 * $CLK_PERIOD] -clock [get_clocks clk] $func_inpu
 set_output_delay -max [expr 0.4 * $CLK_PERIOD] -clock [get_clocks clk] $func_outputs
 # FIX: input-to-output is not well constrained. setting muclticycle_path + max_delay as an experiment for timing
 set_multicycle_path 2 -from $func_inputs -to $func_outputs -setup
-set_max_delay -datapath_only -from $func_inputs -to $func_outputs [expr 0.5 * $CLK_PERIOD]
+# NOTE: Vivado adds the input and output delays above to the max_delay. So the intent is 0.5, but need 1.4
+set_max_delay -datapath_only -from $func_inputs -to $func_outputs [expr 1.4 * $CLK_PERIOD]
 
 ### Debug I/O group relative to debug clock 
 set debug_inputs [get_ports debug_* -filter "DIRECTION == IN && NAME !~ $debug_clk_port"]
@@ -29,4 +30,5 @@ set_output_delay -max [expr 0.4 * $DEBUG_PERIOD] -clock [get_clocks debug_clk] $
 
 # FIX: input-to-output is not well constrained. setting muclticycle_path + max_delay as an experiment for timing
 set_multicycle_path 2 -from $debug_inputs -to $debug_outputs -setup
-set_max_delay -datapath_only -from $debug_inputs -to $debug_outputs [expr 0.5 * $DEBUG_PERIOD]
+# NOTE: Vivado adds the input and output delays above to the max_delay. So the intent is 0.5, but need 1.4
+set_max_delay -datapath_only -from $debug_inputs -to $debug_outputs [expr 1.4 * $DEBUG_PERIOD]
