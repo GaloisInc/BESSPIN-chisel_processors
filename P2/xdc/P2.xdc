@@ -1,5 +1,5 @@
 ### General Constants
-set CLK_PERIOD 4.545
+set CLK_PERIOD 5.0
 set DEBUG_PERIOD 100.0
 
 ### Clock definitions and relationships
