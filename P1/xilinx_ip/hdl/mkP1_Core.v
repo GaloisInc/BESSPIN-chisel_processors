@@ -499,7 +499,7 @@ module mkP1_Core(CLK,
   output master1_rready;
 
   // action method cpu_external_interrupt
-  input  cpu_external_interrupt_req;
+  input  [15 : 0] cpu_external_interrupt_req;
 
   // action method jtag_tdi
   input  jtag_tdi;
@@ -531,7 +531,7 @@ module mkP1_Core(CLK,
   P1System i_P1System (
     .clock                           (CLK                             ),
     .reset                           (reset                           ),
-    .interrupts                      ({1'b0, cpu_external_interrupt_req}),
+    .interrupts                      (cpu_external_interrupt_req),
     .debug_systemjtag_jtag_TCK       (jtag_tclk                        ),
     .debug_systemjtag_jtag_TMS       (jtag_tms                        ),
     .debug_systemjtag_jtag_TDI       (jtag_tdi                        ),
