@@ -29,7 +29,7 @@ if [[ $? -ne 0 ]]; then
 fi
 
 cd ../../
-cp $generated_dir/galois.system.P1FPGAConfig.v $user_ip_dir
-cp $generated_dir/galois.system.P1FPGAConfig.behav_srams.v $user_ip_dir
-cp $generated_dir/galois.system.P1FPGAConfig/AsyncResetReg.v $user_ip_dir
-cp $generated_dir/galois.system.P1FPGAConfig/plusarg_reader.v $user_ip_dir
+cp $generated_dir/galois.system.${proc_name}FPGAConfig.v $user_ip_dir
+cp $generated_dir/galois.system.${proc_name}FPGAConfig.behav_srams.v $user_ip_dir
+cp $generated_dir/galois.system.${proc_name}FPGAConfig/AsyncResetReg.v $user_ip_dir
+cp $generated_dir/galois.system.${proc_name}FPGAConfig/plusarg_reader.v $user_ip_dir
