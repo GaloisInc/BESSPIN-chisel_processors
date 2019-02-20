@@ -1,4 +1,4 @@
 [submodule "P1/rocket-chip"]
 	path = P1/rocket-chip
-	url = git@gitlab-ext.galois.com:ssith/rocket-chip.git
+	url = ../rocket-chip.git
 	branch = p1_basic_dev
