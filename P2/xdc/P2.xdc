@@ -1,5 +1,5 @@
 ### General Constants
-set CLK_PERIOD 5.0
+set CLK_PERIOD 4.545
 set DEBUG_PERIOD 100.0
 
 ### Clock definitions and relationships
@@ -32,3 +32,5 @@ set_output_delay -max [expr 0.4 * $DEBUG_PERIOD] -clock [get_clocks debug_clk] $
 set_multicycle_path 2 -from $debug_inputs -to $debug_outputs -setup
 # NOTE: Vivado adds the input and output delays above to the max_delay. So the intent is 0.5, but need 1.4
 set_max_delay -datapath_only -from $debug_inputs -to $debug_outputs [expr 1.4 * $DEBUG_PERIOD]
+
+set_property BLOCK_SYNTH.RETIMING {1} [get_cells tile/fpuOpt]
