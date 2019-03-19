@@ -195,24 +195,24 @@ endmodule
 
 module mem_ext(
   input W0_clk,
-  input [24:0] W0_addr,
+  input [23:0] W0_addr,
   input W0_en,
   input [63:0] W0_data,
   input [7:0] W0_mask,
   input R0_clk,
-  input [24:0] R0_addr,
+  input [23:0] R0_addr,
   input R0_en,
   output [63:0] R0_data
 );
 
   reg reg_R0_ren;
-  reg [24:0] reg_R0_addr;
-  reg [63:0] ram [33554431:0];
+  reg [23:0] reg_R0_addr;
+  reg [63:0] ram [16777215:0];
   `ifdef RANDOMIZE_MEM_INIT
     integer initvar;
     initial begin
       #`RANDOMIZE_DELAY begin end
-      for (initvar = 0; initvar < 33554432; initvar = initvar+1)
+      for (initvar = 0; initvar < 16777216; initvar = initvar+1)
         ram[initvar] = {2 {$random}};
       reg_R0_addr = {1 {$random}};
     end
