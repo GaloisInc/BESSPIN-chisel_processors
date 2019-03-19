@@ -575,7 +575,7 @@ module mkP2_Core(CLK,
   wire traceout_ready;
   wire traceout_valid;
 
-  P1System i_P1System (
+  P2System i_P2System (
     .clock                           (CLK                             ),
     .reset                           (reset                           ),
     .interrupts                      (cpu_external_interrupt_req),
@@ -739,7 +739,7 @@ module mkP2_Core(CLK,
     .traceout_bits_count             (traceout_combined[607:576]      )
   );
 
-  mkTV_Xactor tv_xactor(.RST(RST_N),
+  mkTV_Xactor tv_xactor(.RST_N(RST_N),
                         .CLK(CLK),
                         .tv_in_put(traceout_combined),
                         .RDY_tv_in_put(traceout_ready),
