@@ -2177,7 +2177,17 @@
     <spirit:fileSet>
       <spirit:name>xilinx_anylanguagesynthesis_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>hdl/boom.galois.system.P3FPGAConfig.v</spirit:name>
+        <spirit:name>hdl/AsyncResetReg.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>CHECKSUM_21b62ad7</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/plusarg_reader.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>CHECKSUM_21b62ad7</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/boom.galois.system.TestHarness.BoomP3FPGAConfig.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -2189,7 +2199,17 @@
     <spirit:fileSet>
       <spirit:name>xilinx_anylanguagebehavioralsimulation_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>hdl/boom.galois.system.P3FPGAConfig.v</spirit:name>
+        <spirit:name>hdl/AsyncResetReg.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>CHECKSUM_21b62ad7</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/plusarg_reader.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>CHECKSUM_21b62ad7</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/boom.galois.system.TestHarness.BoomP3FPGAConfig.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>

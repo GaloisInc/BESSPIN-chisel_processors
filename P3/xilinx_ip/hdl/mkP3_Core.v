@@ -113,7 +113,7 @@
   `define BSV_RESET_EDGE negedge
 `endif
 
-module mkP2_Core(CLK,
+module mkP3_Core(CLK,
 		 RST_N,
 
 		 master0_awvalid,
@@ -671,5 +671,5 @@ module mkP2_Core(CLK,
   assign master1_arregion = 'b0;
   assign master1_awregion = 'b0;
 
-endmodule  // mkP2_Core
+endmodule  // mkP3_Core
 
