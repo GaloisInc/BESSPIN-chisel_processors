@@ -528,7 +528,7 @@ module mkP2_Core(CLK,
   wire debug_ndreset;
   wire debug_dmactive;
 
-  P1System i_P1System (
+  P3System i_P3System (
     .clock                           (CLK                             ),
     .reset                           (reset                           ),
     .interrupts                      (cpu_external_interrupt_req),
@@ -601,7 +601,7 @@ module mkP2_Core(CLK,
     .mmio_axi4_0_ar_ready            (master1_arready                 ),
     .mmio_axi4_0_ar_valid            (master1_arvalid                 ),
     .mmio_axi4_0_ar_bits_id          (master1_arid                    ),
-    .mmio_axi4_0_ar_bits_addr        (master1_araddr[31:0]            ),
+    .mmio_axi4_0_ar_bits_addr        (master1_araddr[30:0]            ), // TODO: Increase width to 32 bits
     .mmio_axi4_0_ar_bits_len         (master1_arlen                   ),
     .mmio_axi4_0_ar_bits_size        (master1_arsize                  ),
     .mmio_axi4_0_ar_bits_burst       (master1_arburst                 ),
@@ -614,7 +614,47 @@ module mkP2_Core(CLK,
     .mmio_axi4_0_r_bits_id           (master1_rid                     ),
     .mmio_axi4_0_r_bits_data         (master1_rdata             ),
     .mmio_axi4_0_r_bits_resp         (master1_rresp                   ),
-    .mmio_axi4_0_r_bits_last         (master1_rlast                   )
+    .mmio_axi4_0_r_bits_last         (master1_rlast                   ),
+
+    // Tie off additional axi ports
+    // TODO: Remove this port
+    .l2_frontend_bus_axi4_0_aw_ready(), // output
+    .l2_frontend_bus_axi4_0_aw_valid(1'b0), // input
+    .l2_frontend_bus_axi4_0_aw_bits_id(8'b0), // input 7
+    .l2_frontend_bus_axi4_0_aw_bits_addr(32'b0), // input 31
+    .l2_frontend_bus_axi4_0_aw_bits_len(8'b0), // input 7
+    .l2_frontend_bus_axi4_0_aw_bits_size(3'b0), // input 2
+    .l2_frontend_bus_axi4_0_aw_bits_burst(2'b0), // input 1
+    .l2_frontend_bus_axi4_0_aw_bits_lock(1'b0), // input
+    .l2_frontend_bus_axi4_0_aw_bits_cache(4'b0), // input 3
+    .l2_frontend_bus_axi4_0_aw_bits_prot(3'b0), // input 2
+    .l2_frontend_bus_axi4_0_aw_bits_qos(4'b0), // input 3
+    .l2_frontend_bus_axi4_0_w_ready(), // output
+    .l2_frontend_bus_axi4_0_w_valid(1'b0), // input
+    .l2_frontend_bus_axi4_0_w_bits_data(64'b0), // input 63
+    .l2_frontend_bus_axi4_0_w_bits_strb(8'b0), // input 7
+    .l2_frontend_bus_axi4_0_w_bits_last(1'b0), // input
+    .l2_frontend_bus_axi4_0_b_ready(1'b0), // input
+    .l2_frontend_bus_axi4_0_b_valid(), // output
+    .l2_frontend_bus_axi4_0_b_bits_id(), // output
+    .l2_frontend_bus_axi4_0_b_bits_resp(), // output
+    .l2_frontend_bus_axi4_0_ar_ready(), // output
+    .l2_frontend_bus_axi4_0_ar_valid(1'b0), // input
+    .l2_frontend_bus_axi4_0_ar_bits_id(8'b0), // input 7
+    .l2_frontend_bus_axi4_0_ar_bits_addr(32'b0), // input 31
+    .l2_frontend_bus_axi4_0_ar_bits_len(8'b0), // input 7
+    .l2_frontend_bus_axi4_0_ar_bits_size(3'b0), // input 2
+    .l2_frontend_bus_axi4_0_ar_bits_burst(2'b0), // input 1
+    .l2_frontend_bus_axi4_0_ar_bits_lock(1'b0), // input
+    .l2_frontend_bus_axi4_0_ar_bits_cache(4'b0), // input 3
+    .l2_frontend_bus_axi4_0_ar_bits_prot(2'b0), // input 2
+    .l2_frontend_bus_axi4_0_ar_bits_qos(4'b0), // input 3
+    .l2_frontend_bus_axi4_0_r_ready(1'b0), // input
+    .l2_frontend_bus_axi4_0_r_valid(), // output
+    .l2_frontend_bus_axi4_0_r_bits_id(), // output
+    .l2_frontend_bus_axi4_0_r_bits_data(), // output
+    .l2_frontend_bus_axi4_0_r_bits_resp(), // output
+    .l2_frontend_bus_axi4_0_r_bits_last()  // output
   );
 
   // create a reset with the correct polarity
@@ -626,8 +666,8 @@ module mkP2_Core(CLK,
   assign master0_araddr[63:32] = 'b0; 
   assign master0_arregion = 'b0;
   assign master0_awregion = 'b0;
-  assign master1_awaddr[63:32] = 'b0;
-  assign master1_araddr[63:32] = 'b0;
+  assign master1_awaddr[63:31] = 'b0; // TODO: Increase width to 32 bits
+  assign master1_araddr[63:31] = 'b0; // TODO: Increase width to 32 bits
   assign master1_arregion = 'b0;
   assign master1_awregion = 'b0;
 
