@@ -42,7 +42,7 @@ if [ $proc_name == "P1" ] || [ $proc_name == "P2" ]; then
 # Build Chisel P3
 else
     cd P3/boom-template/verisim
-    # make PROJECT=boom.galois.system CONFIG=BoomP3FPGAConfig
+    make PROJECT=boom.galois.system CONFIG=BoomP3FPGAConfig
     if [[ $? -ne 0 ]]; then
         echo "Processor build failed."
         exit 1
