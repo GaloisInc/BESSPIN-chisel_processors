@@ -19,7 +19,7 @@ function proc_picker {
 
 proc_picker $1
 cd rocket-chip/vsim
-make verilog PROJECT=galois.system CONFIG=${proc_name}FPGAConfig
+make verilog PROJECT=galois.system CONFIG=${proc_name}TVFPGAConfig
 
 generated_dir=rocket-chip/vsim/generated-src
 user_ip_dir=$proc_name/xilinx_ip/hdl/
@@ -29,7 +29,7 @@ if [[ $? -ne 0 ]]; then
 fi
 
 cd ../../
-cp $generated_dir/galois.system.${proc_name}FPGAConfig.v $user_ip_dir
-cp $generated_dir/galois.system.${proc_name}FPGAConfig.behav_srams.v $user_ip_dir
-cp $generated_dir/galois.system.${proc_name}FPGAConfig/AsyncResetReg.v $user_ip_dir
-cp $generated_dir/galois.system.${proc_name}FPGAConfig/plusarg_reader.v $user_ip_dir
+cp $generated_dir/galois.system.${proc_name}TVFPGAConfig.v $user_ip_dir
+cp $generated_dir/galois.system.${proc_name}TVFPGAConfig.behav_srams.v $user_ip_dir
+cp $generated_dir/galois.system.${proc_name}TVFPGAConfig/AsyncResetReg.v $user_ip_dir
+cp $generated_dir/galois.system.${proc_name}TVFPGAConfig/plusarg_reader.v $user_ip_dir

@@ -575,7 +575,7 @@ module mkP2_Core(CLK,
   wire traceout_ready;
   wire traceout_valid;
 
-  P2System i_P2System (
+  GaloisSystem i_P2System (
     .clock                           (CLK                             ),
     .reset                           (reset                           ),
     .interrupts                      (cpu_external_interrupt_req),
