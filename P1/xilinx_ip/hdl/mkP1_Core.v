@@ -62,6 +62,11 @@
 // master1_arqos                  O     4 const
 // master1_arregion               O     4 const
 // master1_rready                 O     1
+// tv_verifier_info_tx_tvalid     O     1 reg
+// tv_verifier_info_tx_tdata      O   608 reg
+// tv_verifier_info_tx_tstrb      O    76 reg
+// tv_verifier_info_tx_tkeep      O    76 reg
+// tv_verifier_info_tx_tlast      O     1 reg
 // jtag_tdo                       O     1
 // CLK_jtag_tclk_out              O     1 clock
 // CLK_GATE_jtag_tclk_out         O     1 const
@@ -90,6 +95,7 @@
 // master1_rresp                  I     2 reg
 // master1_rlast                  I     1 unused
 // cpu_external_interrupt_req     I     1 reg
+// tv_verifier_info_tx_tready     I     1
 // jtag_tdi                       I     1
 // jtag_tms                       I     1
 // jtag_tclk                      I     1
@@ -261,6 +267,18 @@ module mkP1_Core(CLK,
 		 master1_rready,
 
 		 cpu_external_interrupt_req,
+
+		 tv_verifier_info_tx_tvalid,
+
+		 tv_verifier_info_tx_tdata,
+
+		 tv_verifier_info_tx_tstrb,
+
+		 tv_verifier_info_tx_tkeep,
+
+		 tv_verifier_info_tx_tlast,
+
+		 tv_verifier_info_tx_tready,
 
 		 jtag_tdi,
 
@@ -501,6 +519,30 @@ module mkP1_Core(CLK,
   // action method cpu_external_interrupt
   input  [15 : 0] cpu_external_interrupt_req;
 
+  // value method tv_verifier_info_tx_m_tvalid
+  output tv_verifier_info_tx_tvalid;
+
+  // value method tv_verifier_info_tx_m_tid
+
+  // value method tv_verifier_info_tx_m_tdata
+  output [607 : 0] tv_verifier_info_tx_tdata;
+
+  // value method tv_verifier_info_tx_m_tstrb
+  output [75 : 0] tv_verifier_info_tx_tstrb;
+
+  // value method tv_verifier_info_tx_m_tkeep
+  output [75 : 0] tv_verifier_info_tx_tkeep;
+
+  // value method tv_verifier_info_tx_m_tlast
+  output tv_verifier_info_tx_tlast;
+
+  // value method tv_verifier_info_tx_m_tdest
+
+  // value method tv_verifier_info_tx_m_tuser
+
+  // action method tv_verifier_info_tx_m_tready
+  input  tv_verifier_info_tx_tready;
+
   // action method jtag_tdi
   input  jtag_tdi;
 
@@ -528,7 +570,12 @@ module mkP1_Core(CLK,
   wire debug_ndreset;
   wire debug_dmactive;
 
-  P1System i_P1System (
+  // TV Signals
+  wire [607:0] traceout_combined;
+  wire traceout_ready;
+  wire traceout_valid;
+
+  GaloisSystem i_P1System (
     .clock                           (CLK                             ),
     .reset                           (reset                           ),
     .interrupts                      (cpu_external_interrupt_req),
@@ -614,8 +661,96 @@ module mkP1_Core(CLK,
     .mmio_axi4_0_r_bits_id           (master1_rid                     ),
     .mmio_axi4_0_r_bits_data         (master1_rdata             ),
     .mmio_axi4_0_r_bits_resp         (master1_rresp                   ),
-    .mmio_axi4_0_r_bits_last         (master1_rlast                   )
+    .mmio_axi4_0_r_bits_last         (master1_rlast                   ),
+    .traceout_ready                  (traceout_ready                  ),
+    .traceout_valid                  (traceout_valid                  ),
+    .traceout_bits_vec_0             (traceout_combined[7:0]          ),
+    .traceout_bits_vec_1             (traceout_combined[15:8]         ),
+    .traceout_bits_vec_2             (traceout_combined[23:16]        ),
+    .traceout_bits_vec_3             (traceout_combined[31:24]        ),
+    .traceout_bits_vec_4             (traceout_combined[39:32]        ),
+    .traceout_bits_vec_5             (traceout_combined[47:40]        ),
+    .traceout_bits_vec_6             (traceout_combined[55:48]        ),
+    .traceout_bits_vec_7             (traceout_combined[63:56]        ),
+    .traceout_bits_vec_8             (traceout_combined[71:64]        ),
+    .traceout_bits_vec_9             (traceout_combined[79:72]        ),
+    .traceout_bits_vec_10            (traceout_combined[87:80]        ),
+    .traceout_bits_vec_11            (traceout_combined[95:88]        ),
+    .traceout_bits_vec_12            (traceout_combined[103:96]       ),
+    .traceout_bits_vec_13            (traceout_combined[111:104]      ),
+    .traceout_bits_vec_14            (traceout_combined[119:112]      ),
+    .traceout_bits_vec_15            (traceout_combined[127:120]      ),
+    .traceout_bits_vec_16            (traceout_combined[135:128]      ),
+    .traceout_bits_vec_17            (traceout_combined[143:136]      ),
+    .traceout_bits_vec_18            (traceout_combined[151:144]      ),
+    .traceout_bits_vec_19            (traceout_combined[159:152]      ),
+    .traceout_bits_vec_20            (traceout_combined[167:160]      ),
+    .traceout_bits_vec_21            (traceout_combined[175:168]      ),
+    .traceout_bits_vec_22            (traceout_combined[183:176]      ),
+    .traceout_bits_vec_23            (traceout_combined[191:184]      ),
+    .traceout_bits_vec_24            (traceout_combined[199:192]      ),
+    .traceout_bits_vec_25            (traceout_combined[207:200]      ),
+    .traceout_bits_vec_26            (traceout_combined[215:208]      ),
+    .traceout_bits_vec_27            (traceout_combined[223:216]      ),
+    .traceout_bits_vec_28            (traceout_combined[231:224]      ),
+    .traceout_bits_vec_29            (traceout_combined[239:232]      ),
+    .traceout_bits_vec_30            (traceout_combined[247:240]      ),
+    .traceout_bits_vec_31            (traceout_combined[255:248]      ),
+    .traceout_bits_vec_32            (traceout_combined[263:256]      ),
+    .traceout_bits_vec_33            (traceout_combined[271:264]      ),
+    .traceout_bits_vec_34            (traceout_combined[279:272]      ),
+    .traceout_bits_vec_35            (traceout_combined[287:280]      ),
+    .traceout_bits_vec_36            (traceout_combined[295:288]      ),
+    .traceout_bits_vec_37            (traceout_combined[303:296]      ),
+    .traceout_bits_vec_38            (traceout_combined[311:304]      ),
+    .traceout_bits_vec_39            (traceout_combined[319:312]      ),
+    .traceout_bits_vec_40            (traceout_combined[327:320]      ),
+    .traceout_bits_vec_41            (traceout_combined[335:328]      ),
+    .traceout_bits_vec_42            (traceout_combined[343:336]      ),
+    .traceout_bits_vec_43            (traceout_combined[351:344]      ),
+    .traceout_bits_vec_44            (traceout_combined[359:352]      ),
+    .traceout_bits_vec_45            (traceout_combined[367:360]      ),
+    .traceout_bits_vec_46            (traceout_combined[375:368]      ),
+    .traceout_bits_vec_47            (traceout_combined[383:376]      ),
+    .traceout_bits_vec_48            (traceout_combined[391:384]      ),
+    .traceout_bits_vec_49            (traceout_combined[399:392]      ),
+    .traceout_bits_vec_50            (traceout_combined[407:400]      ),
+    .traceout_bits_vec_51            (traceout_combined[415:408]      ),
+    .traceout_bits_vec_52            (traceout_combined[423:416]      ),
+    .traceout_bits_vec_53            (traceout_combined[431:424]      ),
+    .traceout_bits_vec_54            (traceout_combined[439:432]      ),
+    .traceout_bits_vec_55            (traceout_combined[447:440]      ),
+    .traceout_bits_vec_56            (traceout_combined[455:448]      ),
+    .traceout_bits_vec_57            (traceout_combined[463:456]      ),
+    .traceout_bits_vec_58            (traceout_combined[471:464]      ),
+    .traceout_bits_vec_59            (traceout_combined[479:472]      ),
+    .traceout_bits_vec_60            (traceout_combined[487:480]      ),
+    .traceout_bits_vec_61            (traceout_combined[495:488]      ),
+    .traceout_bits_vec_62            (traceout_combined[503:496]      ),
+    .traceout_bits_vec_63            (traceout_combined[511:504]      ),
+    .traceout_bits_vec_64            (traceout_combined[519:512]      ),
+    .traceout_bits_vec_65            (traceout_combined[527:520]      ),
+    .traceout_bits_vec_66            (traceout_combined[535:528]      ),
+    .traceout_bits_vec_67            (traceout_combined[543:536]      ),
+    .traceout_bits_vec_68            (traceout_combined[551:544]      ),
+    .traceout_bits_vec_69            (traceout_combined[559:552]      ),
+    .traceout_bits_vec_70            (traceout_combined[567:560]      ),
+    .traceout_bits_vec_71            (traceout_combined[575:568]      ),
+    .traceout_bits_count             (traceout_combined[607:576]      )
   );
+
+  mkTV_Xactor tv_xactor(.RST_N(RST_N),
+                        .CLK(CLK),
+                        .tv_in_put(traceout_combined),
+                        .RDY_tv_in_put(traceout_ready),
+                        .EN_tv_in_put(traceout_valid & traceout_ready),
+                        .axi_out_tdata(tv_verifier_info_tx_tdata),
+                        .axi_out_tstrb(tv_verifier_info_tx_tstrb),
+                        .axi_out_tkeep(tv_verifier_info_tx_tkeep),
+                        .axi_out_tlast(tv_verifier_info_tx_tlast),
+                        .axi_out_tready(tv_verifier_info_tx_tready),
+                        .axi_out_tvalid(tv_verifier_info_tx_tvalid));
+
 
   // create a reset with the correct polarity
   assign reset = ~RST_N;
