@@ -601,7 +601,7 @@ module mkP3_Core(CLK,
     .mmio_axi4_0_ar_ready            (master1_arready                 ),
     .mmio_axi4_0_ar_valid            (master1_arvalid                 ),
     .mmio_axi4_0_ar_bits_id          (master1_arid                    ),
-    .mmio_axi4_0_ar_bits_addr        (master1_araddr[30:0]            ), // TODO: Increase width to 32 bits
+    .mmio_axi4_0_ar_bits_addr        (master1_araddr[31:0]            ),
     .mmio_axi4_0_ar_bits_len         (master1_arlen                   ),
     .mmio_axi4_0_ar_bits_size        (master1_arsize                  ),
     .mmio_axi4_0_ar_bits_burst       (master1_arburst                 ),
@@ -666,8 +666,8 @@ module mkP3_Core(CLK,
   assign master0_araddr[63:32] = 'b0; 
   assign master0_arregion = 'b0;
   assign master0_awregion = 'b0;
-  assign master1_awaddr[63:31] = 'b0; // TODO: Increase width to 32 bits
-  assign master1_araddr[63:31] = 'b0; // TODO: Increase width to 32 bits
+  assign master1_awaddr[63:32] = 'b0; 
+  assign master1_araddr[63:32] = 'b0;
   assign master1_arregion = 'b0;
   assign master1_awregion = 'b0;
 
