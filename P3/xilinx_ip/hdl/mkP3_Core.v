@@ -62,6 +62,11 @@
 // master1_arqos                  O     4 const
 // master1_arregion               O     4 const
 // master1_rready                 O     1
+// tv_verifier_info_tx_tvalid     O     1 reg
+// tv_verifier_info_tx_tdata      O   608 reg
+// tv_verifier_info_tx_tstrb      O    76 reg
+// tv_verifier_info_tx_tkeep      O    76 reg
+// tv_verifier_info_tx_tlast      O     1 reg
 // jtag_tdo                       O     1
 // CLK_jtag_tclk_out              O     1 clock
 // CLK_GATE_jtag_tclk_out         O     1 const
@@ -90,6 +95,7 @@
 // master1_rresp                  I     2 reg
 // master1_rlast                  I     1 unused
 // cpu_external_interrupt_req     I     1 reg
+// tv_verifier_info_tx_tready     I     1
 // jtag_tdi                       I     1
 // jtag_tms                       I     1
 // jtag_tclk                      I     1
@@ -114,164 +120,176 @@
 `endif
 
 module mkP3_Core(CLK,
-		 RST_N,
+     RST_N,
 
-		 master0_awvalid,
+     master0_awvalid,
 
-		 master0_awid,
+     master0_awid,
 
-		 master0_awaddr,
+     master0_awaddr,
 
-		 master0_awlen,
+     master0_awlen,
 
-		 master0_awsize,
+     master0_awsize,
 
-		 master0_awburst,
+     master0_awburst,
 
-		 master0_awlock,
+     master0_awlock,
 
-		 master0_awcache,
+     master0_awcache,
 
-		 master0_awprot,
+     master0_awprot,
 
-		 master0_awqos,
+     master0_awqos,
 
-		 master0_awregion,
+     master0_awregion,
 
-		 master0_awready,
+     master0_awready,
 
-		 master0_wvalid,
+     master0_wvalid,
 
-		 master0_wdata,
+     master0_wdata,
 
-		 master0_wstrb,
+     master0_wstrb,
 
-		 master0_wlast,
+     master0_wlast,
 
-		 master0_wready,
+     master0_wready,
 
-		 master0_bvalid,
-		 master0_bid,
-		 master0_bresp,
+     master0_bvalid,
+     master0_bid,
+     master0_bresp,
 
-		 master0_bready,
+     master0_bready,
 
-		 master0_arvalid,
+     master0_arvalid,
 
-		 master0_arid,
+     master0_arid,
 
-		 master0_araddr,
+     master0_araddr,
 
-		 master0_arlen,
+     master0_arlen,
 
-		 master0_arsize,
+     master0_arsize,
 
-		 master0_arburst,
+     master0_arburst,
 
-		 master0_arlock,
+     master0_arlock,
 
-		 master0_arcache,
+     master0_arcache,
 
-		 master0_arprot,
+     master0_arprot,
 
-		 master0_arqos,
+     master0_arqos,
 
-		 master0_arregion,
+     master0_arregion,
 
-		 master0_arready,
+     master0_arready,
 
-		 master0_rvalid,
-		 master0_rid,
-		 master0_rdata,
-		 master0_rresp,
-		 master0_rlast,
+     master0_rvalid,
+     master0_rid,
+     master0_rdata,
+     master0_rresp,
+     master0_rlast,
 
-		 master0_rready,
+     master0_rready,
 
-		 master1_awvalid,
+     master1_awvalid,
 
-		 master1_awid,
+     master1_awid,
 
-		 master1_awaddr,
+     master1_awaddr,
 
-		 master1_awlen,
+     master1_awlen,
 
-		 master1_awsize,
+     master1_awsize,
 
-		 master1_awburst,
+     master1_awburst,
 
-		 master1_awlock,
+     master1_awlock,
 
-		 master1_awcache,
+     master1_awcache,
 
-		 master1_awprot,
+     master1_awprot,
 
-		 master1_awqos,
+     master1_awqos,
 
-		 master1_awregion,
+     master1_awregion,
 
-		 master1_awready,
+     master1_awready,
 
-		 master1_wvalid,
+     master1_wvalid,
 
-		 master1_wdata,
+     master1_wdata,
 
-		 master1_wstrb,
+     master1_wstrb,
 
-		 master1_wlast,
+     master1_wlast,
 
-		 master1_wready,
+     master1_wready,
 
-		 master1_bvalid,
-		 master1_bid,
-		 master1_bresp,
+     master1_bvalid,
+     master1_bid,
+     master1_bresp,
 
-		 master1_bready,
+     master1_bready,
 
-		 master1_arvalid,
+     master1_arvalid,
 
-		 master1_arid,
+     master1_arid,
 
-		 master1_araddr,
+     master1_araddr,
 
-		 master1_arlen,
+     master1_arlen,
 
-		 master1_arsize,
+     master1_arsize,
 
-		 master1_arburst,
+     master1_arburst,
 
-		 master1_arlock,
+     master1_arlock,
 
-		 master1_arcache,
+     master1_arcache,
 
-		 master1_arprot,
+     master1_arprot,
 
-		 master1_arqos,
+     master1_arqos,
 
-		 master1_arregion,
+     master1_arregion,
 
-		 master1_arready,
+     master1_arready,
 
-		 master1_rvalid,
-		 master1_rid,
-		 master1_rdata,
-		 master1_rresp,
-		 master1_rlast,
+     master1_rvalid,
+     master1_rid,
+     master1_rdata,
+     master1_rresp,
+     master1_rlast,
 
-		 master1_rready,
+     master1_rready,
 
-		 cpu_external_interrupt_req,
+     cpu_external_interrupt_req,
 
-		 jtag_tdi,
+     tv_verifier_info_tx_tvalid,
 
-		 jtag_tms,
+     tv_verifier_info_tx_tdata,
 
-		 jtag_tclk,
+     tv_verifier_info_tx_tstrb,
 
-		 jtag_tdo,
+     tv_verifier_info_tx_tkeep,
 
-		 CLK_jtag_tclk_out,
-		 CLK_GATE_jtag_tclk_out);
+     tv_verifier_info_tx_tlast,
+
+     tv_verifier_info_tx_tready,
+
+     jtag_tdi,
+
+     jtag_tms,
+
+     jtag_tclk,
+
+     jtag_tdo,
+
+     CLK_jtag_tclk_out,
+     CLK_GATE_jtag_tclk_out);
 
   input  CLK;
   input  RST_N;
@@ -501,6 +519,30 @@ module mkP3_Core(CLK,
   // action method cpu_external_interrupt
   input  [15 : 0] cpu_external_interrupt_req;
 
+  // value method tv_verifier_info_tx_m_tvalid
+  output tv_verifier_info_tx_tvalid;
+
+  // value method tv_verifier_info_tx_m_tid
+
+  // value method tv_verifier_info_tx_m_tdata
+  output [607 : 0] tv_verifier_info_tx_tdata;
+
+  // value method tv_verifier_info_tx_m_tstrb
+  output [75 : 0] tv_verifier_info_tx_tstrb;
+
+  // value method tv_verifier_info_tx_m_tkeep
+  output [75 : 0] tv_verifier_info_tx_tkeep;
+
+  // value method tv_verifier_info_tx_m_tlast
+  output tv_verifier_info_tx_tlast;
+
+  // value method tv_verifier_info_tx_m_tdest
+
+  // value method tv_verifier_info_tx_m_tuser
+
+  // action method tv_verifier_info_tx_m_tready
+  input  tv_verifier_info_tx_tready;
+
   // action method jtag_tdi
   input  jtag_tdi;
 
@@ -527,6 +569,11 @@ module mkP3_Core(CLK,
   wire debug_systemjtag_jtag_TDO_driven;
   wire debug_ndreset;
   wire debug_dmactive;
+
+  // TV Signals
+  wire [607:0] traceout_combined;
+  wire traceout_ready;
+  wire traceout_valid;
 
   P3System i_P3System (
     .clock                           (CLK                             ),
@@ -657,6 +704,22 @@ module mkP3_Core(CLK,
     .l2_frontend_bus_axi4_0_r_bits_last()  // output
   );
 
+  mkTV_Xactor tv_xactor(.RST_N(RST_N),
+                        .CLK(CLK),
+                        .tv_in_put(traceout_combined),
+                        .RDY_tv_in_put(traceout_ready),
+                        .EN_tv_in_put(traceout_valid & traceout_ready),
+                        .axi_out_tdata(tv_verifier_info_tx_tdata),
+                        .axi_out_tstrb(tv_verifier_info_tx_tstrb),
+                        .axi_out_tkeep(tv_verifier_info_tx_tkeep),
+                        .axi_out_tlast(tv_verifier_info_tx_tlast),
+                        .axi_out_tready(tv_verifier_info_tx_tready),
+                        .axi_out_tvalid(tv_verifier_info_tx_tvalid));
+
+  // Tie down the SVF port for now
+  assign traceout_combined = 608'b0;
+  assign traceout_valid = 1'b0;
+
   // create a reset with the correct polarity
   assign reset = ~RST_N;
 
@@ -666,7 +729,7 @@ module mkP3_Core(CLK,
   assign master0_araddr[63:32] = 'b0; 
   assign master0_arregion = 'b0;
   assign master0_awregion = 'b0;
-  assign master1_awaddr[63:32] = 'b0; 
+  assign master1_awaddr[63:32] = 'b0;
   assign master1_araddr[63:32] = 'b0;
   assign master1_arregion = 'b0;
   assign master1_awregion = 'b0;
