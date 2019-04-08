@@ -53,4 +53,3 @@ else
 
     cp $generated_dir/boom.galois.system.TestHarness.BoomP3FPGAConfig.v $user_ip_dir
 fi
->>>>>>> origin/boom
