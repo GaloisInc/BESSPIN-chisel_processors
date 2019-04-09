@@ -4,5 +4,5 @@
 	branch = p1_basic_dev
 [submodule "P3/boom-template"]
 	path = P3/boom-template
-	url = git@gitlab-ext.galois.com:ssith/boom-template.git
+	url = ../boom-template.git
 	branch = ssith
