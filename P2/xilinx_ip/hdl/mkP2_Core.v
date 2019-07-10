@@ -122,6 +122,8 @@
 module mkP2_Core(CLK,
 		 RST_N,
 
+		 debug_resetn,
+
 		 master0_awvalid,
 
 		 master0_awid,
@@ -293,6 +295,8 @@ module mkP2_Core(CLK,
 
   input  CLK;
   input  RST_N;
+  input  debug_resetn;
+  wire   debug_reset;
 
   // value method master0_m_awvalid
   output master0_awvalid;
@@ -563,6 +567,7 @@ module mkP2_Core(CLK,
 
   // rocket internal signals
   wire reset;
+  wire tile_reset;
   wire [10:0] debug_systemjtag_mfr_id;
 
   // rocket unused outputs
@@ -577,14 +582,14 @@ module mkP2_Core(CLK,
 
   GaloisSystem i_P2System (
     .clock                           (CLK                             ),
-    .reset                           (reset                           ),
-    .interrupts                      (cpu_external_interrupt_req),
-    .debug_systemjtag_jtag_TCK       (jtag_tclk                        ),
+    .reset                           (tile_reset                      ),
+    .interrupts                      (cpu_external_interrupt_req      ),
+    .debug_systemjtag_jtag_TCK       (jtag_tclk                       ),
     .debug_systemjtag_jtag_TMS       (jtag_tms                        ),
     .debug_systemjtag_jtag_TDI       (jtag_tdi                        ),
     .debug_systemjtag_jtag_TDO_data  (jtag_tdo                        ),
     .debug_systemjtag_jtag_TDO_driven(debug_systemjtag_jtag_TDO_driven),
-    .debug_systemjtag_reset          (reset                           ),
+    .debug_systemjtag_reset          (debug_reset                     ),
     .debug_systemjtag_mfr_id         (debug_systemjtag_mfr_id         ),
     .debug_ndreset                   (debug_ndreset                   ),
     .debug_dmactive                  (debug_dmactive                  ),
@@ -753,7 +758,9 @@ module mkP2_Core(CLK,
 
 
   // create a reset with the correct polarity
-  assign reset = ~RST_N;
+  assign reset = ~RST_N | debug_reset;
+  assign tile_reset = reset | debug_ndreset;
+  assign debug_reset = ~debug_resetn;
 
   // For now, use SiFive manufacturing IDCODE, so that OpenOCD can recognize it
   assign debug_systemjtag_mfr_id = 11'h489;
