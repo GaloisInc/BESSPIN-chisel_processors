@@ -2334,7 +2334,11 @@
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/boom.galois.system.TestHarness.BoomP3FPGAConfig.v</spirit:name>
+        <spirit:name>hdl/example.TestHarnessGFE.BoomP3FPGAConfig.top.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/example.TestHarnessGFE.BoomP3FPGAConfig.top.mems.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -2343,6 +2347,10 @@
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/FIFO2.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/EICG_wrapper.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -2362,7 +2370,11 @@
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/boom.galois.system.TestHarness.BoomP3FPGAConfig.v</spirit:name>
+        <spirit:name>hdl/example.TestHarnessGFE.BoomP3FPGAConfig.top.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/example.TestHarnessGFE.BoomP3FPGAConfig.top.mems.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -2371,6 +2383,10 @@
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/FIFO2.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/EICG_wrapper.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>

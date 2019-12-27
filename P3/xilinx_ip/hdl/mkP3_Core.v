@@ -575,7 +575,7 @@ module mkP3_Core(CLK,
   wire traceout_ready;
   wire traceout_valid;
 
-  P3System i_P3System (
+  TopGFE i_P3System (
     .clock                           (CLK                             ),
     .reset                           (reset                           ),
     .interrupts                      (cpu_external_interrupt_req),
@@ -701,7 +701,7 @@ module mkP3_Core(CLK,
     .l2_frontend_bus_axi4_0_r_bits_id(), // output
     .l2_frontend_bus_axi4_0_r_bits_data(), // output
     .l2_frontend_bus_axi4_0_r_bits_resp(), // output
-    .l2_frontend_bus_axi4_0_r_bits_last()  // output
+    .l2_frontend_bus_axi4_0_r_bits_last() // output
   );
 
   mkTV_Xactor tv_xactor(.RST_N(RST_N),

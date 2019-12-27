@@ -41,15 +41,22 @@ if [ $proc_name == "P1" ] || [ $proc_name == "P2" ]; then
 
 # Build Chisel P3
 else
-    cd P3/boom-template/verisim
-    make PROJECT=boom.galois.system CONFIG=BoomP3FPGAConfig
+    if [ ! -e chipyard/env.sh ]; then
+	echo "Cannot find chipyard/env.sh"
+	echo "It appears Chipyard is not setup propertly."
+	exit 1
+    fi
+
+    . chipyard/env.sh
+    make -C chipyard/sims/verilator/ MODEL=TestHarnessGFE CONFIG=BoomP3FPGAConfig TOP=TopGFE
     if [[ $? -ne 0 ]]; then
         echo "Processor build failed."
         exit 1
     fi
 
-    cd ../../../
-    generated_dir=P3/boom-template/verisim/generated-src
+    generated_dir=chipyard/sims/verilator/generated-src/example.TestHarnessGFE.BoomP3FPGAConfig/
 
-    cp $generated_dir/boom.galois.system.TestHarness.BoomP3FPGAConfig.v $user_ip_dir
+    cp $generated_dir/example.TestHarnessGFE.BoomP3FPGAConfig.top.v \
+       $generated_dir/example.TestHarnessGFE.BoomP3FPGAConfig.top.mems.v \
+       $user_ip_dir
 fi
