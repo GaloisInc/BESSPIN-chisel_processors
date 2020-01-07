@@ -54,15 +54,15 @@ input  wire rst;
    // that, yet Chisel codebase is absolutely intolerant
    // of Xs.
 `ifndef SYNTHESIS
-  integer    initvar;
-  reg [31:0] _RAND;
-  initial begin
+  initial begin:B0
     `ifdef RANDOMIZE
+    integer    initvar;
+    reg [31:0] _RAND;
     _RAND = {1{$random}};
     q = _RAND[0];
     `endif // RANDOMIZE
     if (rst) begin
-      q = RESET_VALUE;
+      q = RESET_VALUE[0];
     end 
   end
 `endif
@@ -70,7 +70,7 @@ input  wire rst;
    always @(posedge clk or posedge rst) begin
 
       if (rst) begin
-         q <= RESET_VALUE;
+         q <= RESET_VALUE[0];
       end else if (en) begin
          q <= d;
       end
