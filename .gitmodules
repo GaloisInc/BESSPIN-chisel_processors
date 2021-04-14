@@ -1,7 +1,6 @@
 [submodule "P1/rocket-chip"]
 	path = rocket-chip
-	url = ../rocket-chip.git
-	branch = p1_basic_dev
+	url = ../BESSPIN-rocket-chip.git
 [submodule "chipyard"]
 	path = chipyard
-	url = ../chipyard.git
+	url = ../BESSPIN-chipyard.git
