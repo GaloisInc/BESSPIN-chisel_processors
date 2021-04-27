@@ -1,3 +1,3 @@
-# Chisel_processors
+# Chisel Processors
 
-Collateral for implementing Galois P1/P2/P3 processors on the VCU118.
+Collateral for implementing Galois BESSPIN P1/P2/P3 processors on the VCU118.
